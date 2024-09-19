@@ -1,9 +1,19 @@
-import { Button, Card, Form, Input } from "antd";
+import { Button, Card, Form, Input, message } from "antd";
 import "./index.scss";
 import logo from "@/assets/logo.png";
+import { fetchToken } from "@/store/modules/user";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
-  const onFinish = (value) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const onFinish = async (value) => {
     console.log(value);
+    await dispatch(fetchToken(value));
+    // 1.跳转首页
+    navigate("/");
+    // 2.提示用户
+    message.success("login successfully");
   };
   return (
     <div className="login">
@@ -13,7 +23,7 @@ const Login = () => {
         {/* 设置在 Form.Item 上的 validateTrigger 只对该具体表单项生效 */}
         <Form validateTrigger="onBlur" onFinish={onFinish}>
           <Form.Item
-            name="number"
+            name="mobile"
             // 多条校验逻辑，先校验第一条，通过以后依次往下
             rules={[
               { required: true, message: "please enter phone number" },

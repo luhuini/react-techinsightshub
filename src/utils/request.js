@@ -5,6 +5,9 @@
  baseURL: 'http://geek.itheima.net/v1_0'
 2.set timeout time
 3.request/response interceptor
+
+13800000002
+246810
 */
 import axios from "axios";
 
